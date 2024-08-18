@@ -10,6 +10,12 @@ function Login(props) {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
+
+    if(props.isLoggedIn){
+      navigate("/");
+      return;
+    }
+
     const result = await signInWithPopup(auth, new GoogleAuthProvider());
     console.log(result);
 
