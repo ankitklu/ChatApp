@@ -1,9 +1,31 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { signInWithPopup } from "firebase/auth";
-import { auth } from "../../../firebase";
+import { auth,db } from "../../../firebase";
 import { GoogleAuthProvider } from "firebase/auth";
 import { Fingerprint, LogIn } from "lucide-react";
+import { doc,setDoc } from "firebase/firestore";
+
+
+
+async function createUser(authData){
+  const userObject= authData.user;
+  // const uid= userObject.uid;
+  // const photoURL= userObject.photoURL;
+  // const name= userObject.displayName;
+  // const email= userObject.email;
+
+  const {uid, photoURL,displayName, email}= userObject;
+
+  await setDoc(doc(db, "users", uid),{
+    email,
+    profil_pic: photoURL,
+    name:displayName
+  })
+
+  console.log("id: ",uid," ", photoURL);
+}
+
 
 function Login(props) {
   const setIsLoggedIn = props.setIsLoggedIn;
@@ -16,8 +38,10 @@ function Login(props) {
       return;
     }
 
-    const result = await signInWithPopup(auth, new GoogleAuthProvider());
-    console.log(result);
+    const user = await signInWithPopup(auth, new GoogleAuthProvider());
+    createUser(user);
+
+    console.log(user);
 
     setIsLoggedIn(true);
     // alert("Logged in");
