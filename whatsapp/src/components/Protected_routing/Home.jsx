@@ -12,7 +12,7 @@ function Home(props) {
   const handleChange=(e)=>{
     const img= e.target.files[0];
 
-    const storageRef= ref(storage, "/profile");
+    const storageRef= ref(storage, "/profile") + Math.random();
 
     //when the upload takes time, there is a inbuilt function which takes 2 params, mainly:- storage refernce and image
     const uploadTask= uploadBytesResumable(storageRef, img);
