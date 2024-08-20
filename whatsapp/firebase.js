@@ -12,7 +12,7 @@ import { getStorage } from "firebase/storage";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "",
+  apiKey: "AIzaSyB6qVTmPOahIFcvxgKmGAIUVdFrjnE8iVA",
   authDomain: "whatsapp-clone-1985c.firebaseapp.com",
   projectId: "whatsapp-clone-1985c",
   storageBucket: "whatsapp-clone-1985c.appspot.com",
