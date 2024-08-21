@@ -29,8 +29,8 @@ async function createUser(authData){
 }
 
 
-function Login(props) {
-  const setIsLoggedIn = props.setIsLoggedIn;
+function Login() {
+  // const setIsLoggedIn = props.setIsLoggedIn;
 
   const {setUserData} = useAuth();
 
@@ -38,10 +38,10 @@ function Login(props) {
 
   const handleLogin = async () => {
 
-    if(props.isLoggedIn){
-      navigate("/");
-      return;
-    }
+    // if(props.isLoggedIn){
+    //   navigate("/");
+    //   return;
+    // }
 
     const user = await signInWithPopup(auth, new GoogleAuthProvider());
     await createUser(user);
@@ -58,7 +58,7 @@ function Login(props) {
 
     console.log(user);
 
-    setIsLoggedIn(true);
+    // setIsLoggedIn(true);
     // alert("Logged in");
     navigate("/");
   };
