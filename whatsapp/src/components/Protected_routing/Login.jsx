@@ -19,7 +19,7 @@ async function createUser(authData){
 
   await setDoc(doc(db, "users", uid),{
     email,
-    profil_pic: photoURL,
+    profile_pic: photoURL,
     name:displayName
   })
 

@@ -4,39 +4,40 @@ import { signOut } from 'firebase/auth';
 import { auth } from '../../../firebase';
 import { storage } from '../../../firebase';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import ChatPanel from './ChatPanel';
 
 function Home(props) {
   const setIsLoggedIn= props.setIsLoggedIn;
   const navigate= useNavigate();
 
-  const handleChange=(e)=>{
-    const img= e.target.files[0];
+  // const handleChange=(e)=>{
+  //   const img= e.target.files[0];
 
-    const storageRef= ref(storage, "/profile") + Math.random();
+  //   const storageRef= ref(storage, "/profile") + Math.random();
 
-    //when the upload takes time, there is a inbuilt function which takes 2 params, mainly:- storage refernce and image
-    const uploadTask= uploadBytesResumable(storageRef, img);
+  //   //when the upload takes time, there is a inbuilt function which takes 2 params, mainly:- storage refernce and image
+  //   const uploadTask= uploadBytesResumable(storageRef, img);
 
-    //developer do this for better understanding
-    uploadTask.on("state_changed", progressCB , errorCB, finishedCB);
+  //   //developer do this for better understanding
+  //   uploadTask.on("state_changed", progressCB , errorCB, finishedCB);
 
-    function progressCB(data){
-      console.log("Data: ", data);
-    }
+  //   function progressCB(data){
+  //     console.log("Data: ", data);
+  //   }
 
-    function errorCB(err){
-      console.log(err);
-    }
+  //   function errorCB(err){
+  //     console.log(err);
+  //   }
 
-    function finishedCB(){
-      console.log("Success: ");
-      getDownloadURL(uploadTask.snapshot.ref).then(function(url){
-        console.log("url is: ", url);
-      })
-    }
+  //   function finishedCB(){
+  //     console.log("Success: ");
+  //     getDownloadURL(uploadTask.snapshot.ref).then(function(url){
+  //       console.log("url is: ", url);
+  //     })
+  //   }
 
 
-  }
+  // }
 
   const handleLogout=async()=>{
     await signOut(auth)
@@ -50,7 +51,8 @@ function Home(props) {
   return (
     <>
     <div>Home</div>
-    <input type="file" accept="image/png image/jpeg image/jpg image/webp" onChange={handleChange} ></input>
+    {/* <input type="file" accept="image/png image/jpeg image/jpg image/webp" onChange={handleChange} ></input> */}
+    <ChatPanel/>
     <button onClick={handleLogout}>Logout</button>
     </>
   )
