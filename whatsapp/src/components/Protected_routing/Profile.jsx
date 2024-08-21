@@ -1,7 +1,9 @@
 import React from 'react'
 import { ArrowLeft } from "lucide-react";
+import { useAuth } from './AuthContext';
 
 function Profile(props) {
+  const {userData} = useAuth();
   return (
     <>
       <div className="bg-green-600 text-white py-4 text-lg px-4 flex items-center gap-6">
@@ -10,11 +12,11 @@ function Profile(props) {
         </button>
         Profile
       </div>
-      {/* <div>
-        <img src={users.profile_pic} alt="" className="rounded-full h-10 w-10"/>
-        <h2>{users.name}</h2>
-        <h2>{users.status}</h2>
-      </div> */}
+      <div>
+        <img src={userData.profile_pic} alt="" className="rounded-full h-10 w-10"/>
+        <h2>{userData.name}</h2>
+        <h2>{userData.status}</h2>
+      </div>
     </>
   )
 }

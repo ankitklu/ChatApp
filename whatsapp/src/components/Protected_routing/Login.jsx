@@ -5,11 +5,13 @@ import { auth,db } from "../../../firebase";
 import { GoogleAuthProvider } from "firebase/auth";
 import { Fingerprint, LogIn } from "lucide-react";
 import { doc,setDoc } from "firebase/firestore";
+import { useAuth } from "./AuthContext";
 
 
 
 async function createUser(authData){
   const userObject= authData.user;
+
   // const uid= userObject.uid;
   // const photoURL= userObject.photoURL;
   // const name= userObject.displayName;
@@ -29,6 +31,9 @@ async function createUser(authData){
 
 function Login(props) {
   const setIsLoggedIn = props.setIsLoggedIn;
+
+  const {setUserData} = useAuth();
+
   const navigate = useNavigate();
 
   const handleLogin = async () => {
@@ -39,7 +44,17 @@ function Login(props) {
     }
 
     const user = await signInWithPopup(auth, new GoogleAuthProvider());
-    createUser(user);
+    await createUser(user);
+
+    const userObject= user.user;
+    const {uid, photoURL,displayName, email}= userObject;
+
+    setUserData({
+      id:uid,
+      profile_pic:photoURL,
+      email,
+      name:displayName
+    });
 
     console.log(user);
 
