@@ -5,6 +5,7 @@ import { auth } from '../../../firebase';
 import { storage } from '../../../firebase';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import ChatPanel from './ChatPanel';
+import Chat from './Chat';
 
 function Home(props) {
   const setIsLoggedIn= props.setIsLoggedIn;
@@ -50,9 +51,11 @@ function Home(props) {
 
   return (
     <>
-    <div>Home</div>
+    {/* <div>Home</div> */}
     {/* <input type="file" accept="image/png image/jpeg image/jpg image/webp" onChange={handleChange} ></input> */}
     <ChatPanel/>
+
+    <Chat/>
     <button onClick={handleLogout}>Logout</button>
     </>
   )

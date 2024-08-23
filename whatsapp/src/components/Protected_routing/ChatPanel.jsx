@@ -7,6 +7,7 @@ import {
   UserRoundIcon,
 } from "lucide-react";
 import Profile from "./Profile";
+import UserCard from "./UserCard";
 
 function ChatPanel() {
   const [users, setUsers] = useState([]);
@@ -19,9 +20,9 @@ function ChatPanel() {
 
   useEffect(() => {
     const getUsers = async () => {
-      const data = await getDocs(collection(db, "users"));
-      console.log(data.docs.length);
-      const arrayOfUser = data.docs.map((doc) => ({
+      const snapshot = await getDocs(collection(db, "users"));
+      console.log(snapshot.docs.length);
+      const arrayOfUser = snapshot.docs.map((doc) => ({
         userData: doc.data(),
         id: doc.id,
       }));
@@ -66,16 +67,9 @@ function ChatPanel() {
         <div>....loading</div>
       ) : (
         <div className="flex flex-col gap-3">
-          {users.map((userObject) => (
-            <div key={userObject.id} className="flex gap-3 border-2">
-              <img
-                src={userObject.userData.profile_pic}
-                alt=""
-                className="rounded-full h-10 v-10"
-              />
-              <h2>{userObject.userData.name}</h2>
-            </div>
-          ))}
+          {users.map((userObject) => <UserCard userObject={userObject} />
+
+          )}
         </div>
       )}
     </>

@@ -32,9 +32,14 @@ async function createUser(authData){
 function Login() {
   // const setIsLoggedIn = props.setIsLoggedIn;
 
-  const {setUserData} = useAuth();
+  const {setUserData, userData} = useAuth();
 
   const navigate = useNavigate();
+
+  if(userData!=null){
+    navigate("/");
+    return <></>
+  }
 
   const handleLogin = async () => {
 
