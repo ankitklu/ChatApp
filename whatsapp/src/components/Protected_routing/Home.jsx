@@ -1,15 +1,15 @@
-import React from 'react'
-import { Navigate, useNavigate } from 'react-router-dom';
-import { signOut } from 'firebase/auth';
-import { auth } from '../../../firebase';
-import { storage } from '../../../firebase';
-import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
-import ChatPanel from './ChatPanel';
-import Chat from './Chat';
+import React from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { auth } from "../../../firebase";
+import { storage } from "../../../firebase";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import ChatPanel from "./ChatPanel";
+import Chat from "./ChatWindow";
 
 function Home(props) {
-  const setIsLoggedIn= props.setIsLoggedIn;
-  const navigate= useNavigate();
+  const setIsLoggedIn = props.setIsLoggedIn;
+  const navigate = useNavigate();
 
   // const handleChange=(e)=>{
   //   const img= e.target.files[0];
@@ -37,28 +37,27 @@ function Home(props) {
   //     })
   //   }
 
-
   // }
 
-  const handleLogout=async()=>{
-    await signOut(auth)
+  const handleLogout = async () => {
+    await signOut(auth);
 
     setIsLoggedIn(false);
     // alert("Logout successful");
-    navigate('/login');
-  }
-
+    navigate("/login");
+  };
 
   return (
-    <>
-    {/* <div>Home</div> */}
-    {/* <input type="file" accept="image/png image/jpeg image/jpg image/webp" onChange={handleChange} ></input> */}
-    <ChatPanel/>
-
-    <Chat/>
-    <button onClick={handleLogout}>Logout</button>
-    </>
-  )
+    <main className="w-full h-screen bg-[#E3E1DB]">
+      {/* <div>Home</div> */}
+      {/* <input type="file" accept="image/png image/jpeg image/jpg image/webp" onChange={handleChange} ></input> */}
+      <div className="bg-[#eff2f5] w-full h-full shadow-md flex">
+        <ChatPanel />
+        <Chat />
+      </div>
+      <button onClick={handleLogout}>Logout</button>
+    </main>
+  );
 }
 
-export default Home
+export default Home;
