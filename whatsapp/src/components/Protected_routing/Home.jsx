@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../firebase";
@@ -40,6 +40,7 @@ function Home(props) {
   // }
 
   const handleLogout = async () => {
+    // const {userData}= useContext();
     await signOut(auth);
 
     setIsLoggedIn(false);

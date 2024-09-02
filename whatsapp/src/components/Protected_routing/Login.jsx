@@ -5,7 +5,7 @@ import { auth,db } from "../../../firebase";
 import { GoogleAuthProvider } from "firebase/auth";
 import { Fingerprint, LogIn } from "lucide-react";
 import { doc,setDoc } from "firebase/firestore";
-import { useAuth } from "./AuthContext";
+// import { useAuth } from "./AuthContext";
 
 
 
@@ -32,14 +32,14 @@ async function createUser(authData){
 function Login() {
   // const setIsLoggedIn = props.setIsLoggedIn;
 
-  const {setUserData, userData} = useAuth();
+  // const {setUserData, userData} = useAuth();
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  if(userData!=null){
-    navigate("/");
-    return <></>
-  }
+  // if(userData!=null){
+  //   navigate("/");
+  //   return <></>
+  // }
 
   const handleLogin = async () => {
 
@@ -51,21 +51,21 @@ function Login() {
     const user = await signInWithPopup(auth, new GoogleAuthProvider());
     await createUser(user);
 
-    const userObject= user.user;
-    const {uid, photoURL,displayName, email}= userObject;
+    // const userObject= user.user;
+    // const {uid, photoURL,displayName, email}= userObject;
 
-    setUserData({
-      id:uid,
-      profile_pic:photoURL,
-      email,
-      name:displayName
-    });
+    // setUserData({
+    //   id:uid,
+    //   profile_pic:photoURL,
+    //   email,
+    //   name:displayName
+    // });
 
-    console.log(user);
+    // console.log(user);
 
-    // setIsLoggedIn(true);
-    // alert("Logged in");
-    navigate("/");
+    // // setIsLoggedIn(true);
+    // // alert("Logged in");
+    // navigate("/");
   };
 
   return (

@@ -12,6 +12,7 @@ export function useAuth() {
 
 function AuthWrapper({ children }) {
   const [userData, setUserData] = useState(null);
+  const [loading, setLoading]= useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -29,6 +30,7 @@ function AuthWrapper({ children }) {
           });
         }
       }
+      setLoading(false);
     });
 
     // Cleanup function to unsubscribe when the component unmounts
@@ -36,7 +38,7 @@ function AuthWrapper({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ userData, setUserData }}>
+    <AuthContext.Provider value={{ userData, setUserData , loading}}>
       {children}
     </AuthContext.Provider>
   );
