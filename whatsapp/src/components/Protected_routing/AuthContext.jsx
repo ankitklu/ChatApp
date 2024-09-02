@@ -34,7 +34,7 @@ function AuthWrapper({ children }) {
     });
 
     // Cleanup function to unsubscribe when the component unmounts
-    return () => unsubscribe();
+    return () => unsubscribe();  //when image doesn't loads
   }, []);
 
   return (
