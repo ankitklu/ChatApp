@@ -8,8 +8,8 @@ import ChatPanel from "./ChatPanel";
 import Chat from "./ChatWindow";
 
 function Home(props) {
-  const setIsLoggedIn = props.setIsLoggedIn;
-  const navigate = useNavigate();
+  // const setIsLoggedIn = props.setIsLoggedIn;
+  // const navigate = useNavigate();
 
   // const handleChange=(e)=>{
   //   const img= e.target.files[0];
@@ -39,14 +39,14 @@ function Home(props) {
 
   // }
 
-  const handleLogout = async () => {
-    // const {userData}= useContext();
-    await signOut(auth);
+  // const handleLogout = async () => {
+  //   // const {userData}= useContext();
+  //   await signOut(auth);
 
-    setIsLoggedIn(false);
-    // alert("Logout successful");
-    navigate("/login");
-  };
+  //   setIsLoggedIn(false);
+  //   // alert("Logout successful");
+  //   navigate("/login");
+  // };
 
   return (
     <main className="w-full h-screen bg-[#E3E1DB]">
@@ -56,7 +56,7 @@ function Home(props) {
         <ChatPanel />
         <Chat />
       </div>
-      <button onClick={handleLogout}>Logout</button>
+      
     </main>
   );
 }

@@ -34,7 +34,7 @@ function Login() {
 
   // const {setUserData, userData} = useAuth();
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   // if(userData!=null){
   //   navigate("/");
@@ -50,6 +50,7 @@ function Login() {
 
     const user = await signInWithPopup(auth, new GoogleAuthProvider());
     await createUser(user);
+    navigate("/");
 
     // const userObject= user.user;
     // const {uid, photoURL,displayName, email}= userObject;
@@ -65,7 +66,6 @@ function Login() {
 
     // // setIsLoggedIn(true);
     // // alert("Logged in");
-    // navigate("/");
   };
 
   return (
