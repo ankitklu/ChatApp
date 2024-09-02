@@ -131,7 +131,12 @@ function ChatWindow() {
               alt="profile-pic"
               className="w-9 h-8 rounded-full object-cover"
             />
-            <h2>{secondUser?.name}</h2>
+            <div>
+              <h2>{secondUser?.name}</h2>
+              {secondUser?.lastSeen && (
+                <p className="text-xs text-neutral-400">last seen at {secondUser?.lastSeen}</p>
+              )}
+            </div>
           </div>
 
           {/* message List */}

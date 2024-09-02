@@ -1,33 +1,40 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { signInWithPopup } from "firebase/auth";
-import { auth,db } from "../../../firebase";
+import { auth, db } from "../../../firebase";
 import { GoogleAuthProvider } from "firebase/auth";
 import { Fingerprint, LogIn } from "lucide-react";
-import { doc,setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 // import { useAuth } from "./AuthContext";
 
+async function createUser(authData) {
+  const userObject = authData.user;
+  const { uid, photoURL, displayName, email } = userObject;
 
 
-async function createUser(authData){
-  const userObject= authData.user;
+  const date = new Date();
+  const timeStamp = date.toLocaleString("en-us", {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+    lastSeen: timeStamp
+  });
+
 
   // const uid= userObject.uid;
   // const photoURL= userObject.photoURL;
   // const name= userObject.displayName;
   // const email= userObject.email;
 
-  const {uid, photoURL,displayName, email}= userObject;
 
-  await setDoc(doc(db, "users", uid),{
+  await setDoc(doc(db, "users", uid), {
     email,
     profile_pic: photoURL,
-    name:displayName
-  })
+    name: displayName,
+  });
 
-  console.log("id: ",uid," ", photoURL);
+  console.log("id: ", uid, " ", photoURL);
 }
-
 
 function Login() {
   // const setIsLoggedIn = props.setIsLoggedIn;
@@ -42,7 +49,6 @@ function Login() {
   // }
 
   const handleLogin = async () => {
-
     // if(props.isLoggedIn){
     //   navigate("/");
     //   return;

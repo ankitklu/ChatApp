@@ -8,11 +8,14 @@ import {
 } from "lucide-react";
 import Profile from "./Profile";
 import UserCard from "./UserCard";
+import { useAuth } from "./AuthContext";
 
 function ChatPanel() {
   const [users, setUsers] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [showProfile, setShowProfile] = useState(false);
+  const {userData} = useAuth();
+
 
   const onBack=()=>{
     setShowProfile(false);
@@ -50,7 +53,7 @@ function ChatPanel() {
           }}
         >
           <img
-            src={"/default-user.png"}
+            src={userData?.profile_pic || "/default-user.png"}
             alt="profile picture"
             className="w-10 h-10 rounded-full object-cover"
           />
