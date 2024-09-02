@@ -1,21 +1,64 @@
-import { doc, getDoc } from "firebase/firestore";
+import { arrayUnion, doc, getDoc, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
 import { MessageSquareText, PlusIcon, SendIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "../../../firebase";
+import { useAuth } from "./AuthContext";
 
 function ChatWindow() {
   const params = useParams();
   const [secondUser, setSecondUser] = useState();
+  const {userData}= useAuth();
   // const [secondUserLoading, setSecondUserLoading] = useState(true);
 
   const receiverId= params.chatid;
+  const [msgList, setMsgList]= useState([]); 
+
+
+  const chatId= userData?.id > receiverId ? `${userData.id}-${receiverId}` : `${receiverId}-${userData?.id}`;
 
   const [msg, setMsg]= useState("");
 
-  const handleSendMsg =()=>{
-    console.log(msg);
-    setMsg("");
+  const handleSendMsg =async()=>{
+    if(msg){
+
+      const date= new Date();
+      const timeStamp = date.toLocaleString("en-us",{
+        hour: "numeric",
+        minute: "numeric",
+        hour12: true
+      });
+
+      //start the chat
+      if(msgList?.length==0){
+        await setDoc(doc(db,"user-chats", chatId),{
+          chatId: chatId,
+          messages:[
+            {
+              text:msg,
+              time: timeStamp,
+              sender: userData.id,
+              receiver: receiverId
+            },
+          ],
+        });
+      }
+      else{
+        //upadate the messafe list
+        await updateDoc(doc(db,"user-chats", chatId),{
+          chatId:chatId,
+          messages:arrayUnion({
+            text:msg,
+            time:timeStamp,
+            sender:userData.id,
+            receiver: receiverId
+          }),
+        });
+      }
+
+      setMsg("");
+    }
+    // console.log(msg);
   }
 
   useEffect(()=>{
@@ -31,6 +74,14 @@ function ChatWindow() {
       
     };
     getuser();
+
+    const msgUnsubscribe = onSnapshot(doc(db,"user-chats", chatId),(doc)=>{
+      setMsgList(doc.data()?.messages || [])
+    })
+    return ()=>{
+      msgUnsubscribe();
+    }
+
   },[receiverId])
 
 
@@ -84,7 +135,19 @@ function ChatWindow() {
           </div>
 
           {/* message List */}
-          <div className="flex-grow flex flex-col gap-12 p-6 "></div>
+          <div className="flex-grow flex flex-col gap-12 p-6 overflow-y-scroll">
+            {msgList?.map((m,index)=>(
+              <div
+              key ={index}
+              data-sender={m.sender===userData.id}
+              className={`bg-white w-fit rounded-md p-2 shadow-sm max-w-[400px] break-wods data-[sender=true]:ml-auto data-[sender=true]:bg-primary-light`}>
+                <p>{m?.text}</p>
+                <p className="text-xs text-neutral-500 text-end">
+                  {m?.time}
+                </p>
+              </div>
+            ))}
+          </div>
 
           {/* chat input */}
           <div className="bg-background py-3 px-6 shadow flex items-center gap-6">
