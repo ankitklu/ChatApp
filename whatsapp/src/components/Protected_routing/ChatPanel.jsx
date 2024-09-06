@@ -17,7 +17,7 @@ function ChatPanel() {
   const [isLoading, setLoading] = useState(true);
   const [showProfile, setShowProfile] = useState(false);
   const { userData } = useAuth();
-  const [searchQuery, setSearchQuery]= useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const onBack = () => {
     setShowProfile(false);
@@ -26,12 +26,10 @@ function ChatPanel() {
   useEffect(() => {
     const getUsers = async () => {
       const snapshot = await getDocs(collection(db, "users"));
-      //console.log(snapshot.docs.length);
       const arrayOfUser = snapshot.docs.map((doc) => ({
         userData: doc.data(),
         id: doc.id,
       }));
-      //console.log("16", arrayOfUser);
       setUsers(arrayOfUser);
       setLoading(false);
     };
@@ -39,15 +37,14 @@ function ChatPanel() {
     getUsers();
   }, []);
 
-  if (showProfile == true) {
+  if (showProfile === true) {
     return <Profile onBack={onBack} />;
   }
 
-  let filteredUsers =users;
-  if(searchQuery){
-    filteredUsers= users.filter((user)=>
+  let filteredUsers = users;
+  if (searchQuery) {
+    filteredUsers = users.filter((user) =>
       user.userData.name?.toLowerCase()?.includes(searchQuery?.toLowerCase())
-    
     );
   }
 
@@ -80,22 +77,22 @@ function ChatPanel() {
         </div>
       ) : (
         <>
-        <div className="bg-white py-2 px-3">
-          <div className="py-2 bg-background flex items-center gap-4 px-3 rounded-lg">
-            <SearchIcon className="h-4 w-4" />
-            <input
-              className="bg-background px-2 py-1 flex-grow outline-none"
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search..."
-            />
-          </div>
+          <div className="bg-white py-2 px-3">
+            <div className="py-2 bg-background flex items-center gap-4 px-3 rounded-lg">
+              <SearchIcon className="h-4 w-4" />
+              <input
+                className="bg-background px-2 py-1 flex-grow outline-none"
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search..."
+              />
+            </div>
 
-          <div className="divide-y py-4 h-full">
-            {filteredUsers.map((userObject) => (
-              <UserCard userObject={userObject} key={userObject.id} />
-            ))}
+            <div className="divide-y py-4 h-[calc(100vh-150px)] overflow-y-auto">
+              {filteredUsers.map((userObject) => (
+                <UserCard userObject={userObject} key={userObject.id} />
+              ))}
+            </div>
           </div>
-        </div>
         </>
       )}
     </div>
