@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { db } from "../../../firebase";
 import {
   CircleFadingPlusIcon,
+  LoaderIcon,
   MessageSquare,
   UserRoundIcon,
 } from "lucide-react";
@@ -14,12 +15,11 @@ function ChatPanel() {
   const [users, setUsers] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [showProfile, setShowProfile] = useState(false);
-  const {userData} = useAuth();
+  const { userData } = useAuth();
 
-
-  const onBack=()=>{
+  const onBack = () => {
     setShowProfile(false);
-  }
+  };
 
   useEffect(() => {
     const getUsers = async () => {
@@ -37,14 +37,12 @@ function ChatPanel() {
     getUsers();
   }, []);
 
-  if (showProfile==true) {
-    return (
-      <Profile onBack={onBack}/>
-    );
+  if (showProfile == true) {
+    return <Profile onBack={onBack} />;
   }
 
   return (
-    <div className="bg-white w-[30vw]">
+    <div className="bg-white w-[30vw] min-w-[350px]">
       {/* Top bar */}
       <div className="bg-background py-2 px-4 border-r flex justify-between items-center gap-2">
         <button
@@ -67,12 +65,14 @@ function ChatPanel() {
 
       {/* Chat list */}
       {isLoading ? (
-        <div>....loading</div>
+        <div className="w-full flex justify-center items-center">
+          <LoaderIcon className="h-10 animate-spin" />
+        </div>
       ) : (
-        <div className="flex flex-col gap-3">
-          {users.map((userObject) => <UserCard userObject={userObject} key={userObject.id}/>
-
-          )}
+        <div className="divide-y py-4 h-full max-h-[calc(100vh-152px)] overflow-scroll">
+          {users.map((userObject) => (
+            <UserCard userObject={userObject} key={userObject.id} />
+          ))}
         </div>
       )}
     </div>
