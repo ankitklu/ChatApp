@@ -17,7 +17,7 @@ async function createUser(authData) {
     hour: "numeric",
     minute: "numeric",
     hour12: true,
-    lastSeen: timeStamp
+    
   });
 
 
@@ -31,6 +31,7 @@ async function createUser(authData) {
     email,
     profile_pic: photoURL,
     name: displayName,
+    lastSeen: timeStamp
   });
 
   //console.log("id: ", uid, " ", photoURL);
