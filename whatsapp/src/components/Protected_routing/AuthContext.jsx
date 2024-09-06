@@ -20,15 +20,16 @@ function AuthWrapper({ children }) {
         const docRef = doc(db, "users", currentUser?.uid);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          const { profile_pic, name, email, lastSeen } = docSnap.data();
-
           await setLastSeen(currentUser);
+          const { profile_pic, name, email, lastSeen ,status} = docSnap.data();
+
           setUserData({
             id: currentUser.uid,
             profile_pic,
             email,
             name,
-            lastSeen
+            lastSeen,
+            status: status?status:""
           });
         }
       }
@@ -51,8 +52,21 @@ function AuthWrapper({ children }) {
     });
   };
 
+  const updateName=async(newName)=>{
+    await updateDoc(doc(db,"users", userData.id),{
+      name: newName
+    });
+  }
+
+  const updateStatus= async(newStatus)=>{
+    await updateDoc(doc(db,"users",userData.id),{
+      status: newStatus
+    });
+  }
+
+
   return (
-    <AuthContext.Provider value={{ userData, setUserData, loading }}>
+    <AuthContext.Provider value={{ userData, setUserData, loading ,updateName,updateStatus}}>
       {children}
     </AuthContext.Provider>
   );
