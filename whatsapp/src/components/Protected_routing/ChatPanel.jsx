@@ -5,6 +5,7 @@ import {
   CircleFadingPlusIcon,
   LoaderIcon,
   MessageSquare,
+  SearchIcon,
   UserRoundIcon,
 } from "lucide-react";
 import Profile from "./Profile";
@@ -16,6 +17,7 @@ function ChatPanel() {
   const [isLoading, setLoading] = useState(true);
   const [showProfile, setShowProfile] = useState(false);
   const { userData } = useAuth();
+  const [searchQuery, setSearchQuery]= useState("");
 
   const onBack = () => {
     setShowProfile(false);
@@ -39,6 +41,14 @@ function ChatPanel() {
 
   if (showProfile == true) {
     return <Profile onBack={onBack} />;
+  }
+
+  let filteredUsers =users;
+  if(searchQuery){
+    filteredUsers= users.filter((user)=>
+      user.userData.name?.toLowerCase()?.includes(searchQuery?.toLowerCase())
+    
+    );
   }
 
   return (
@@ -65,15 +75,28 @@ function ChatPanel() {
 
       {/* Chat list */}
       {isLoading ? (
-        <div className="w-full flex justify-center items-center">
-          <LoaderIcon className="h-10 animate-spin" />
+        <div className="h-full w-full flex justify-center items-center">
+          <LoaderIcon className="w-10 h-10 animate-spin" />
         </div>
       ) : (
-        <div className="divide-y py-4 h-full max-h-[calc(100vh-152px)] overflow-scroll">
-          {users.map((userObject) => (
-            <UserCard userObject={userObject} key={userObject.id} />
-          ))}
+        <>
+        <div className="bg-white py-2 px-3">
+          <div className="py-2 bg-background flex items-center gap-4 px-3 rounded-lg">
+            <SearchIcon className="h-4 w-4" />
+            <input
+              className="bg-background px-2 py-1 flex-grow outline-none"
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search..."
+            />
+          </div>
+
+          <div className="divide-y py-4 h-full">
+            {filteredUsers.map((userObject) => (
+              <UserCard userObject={userObject} key={userObject.id} />
+            ))}
+          </div>
         </div>
+        </>
       )}
     </div>
   );
