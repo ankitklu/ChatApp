@@ -58,7 +58,7 @@ function ChatWindow() {
 
       setMsg("");
     }
-    // console.log(msg);
+    // //console.log(msg);
   }
 
   useEffect(()=>{
@@ -68,7 +68,7 @@ function ChatWindow() {
       const docSnap = await getDoc(docRef);
 
       if(docSnap.exists()){
-        console.log("Second user: "+docSnap.data());
+        //console.log("Second user: "+docSnap.data());
         setSecondUser(docSnap.data());
       };
       
@@ -86,7 +86,7 @@ function ChatWindow() {
 
 
 
-  console.log("Chat params", params);
+  //console.log("Chat params", params);
 
 
   if (!receiverId) {

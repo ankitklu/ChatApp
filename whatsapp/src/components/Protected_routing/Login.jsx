@@ -33,7 +33,7 @@ async function createUser(authData) {
     name: displayName,
   });
 
-  console.log("id: ", uid, " ", photoURL);
+  //console.log("id: ", uid, " ", photoURL);
 }
 
 function Login() {
@@ -68,7 +68,7 @@ function Login() {
     //   name:displayName
     // });
 
-    // console.log(user);
+    // //console.log(user);
 
     // // setIsLoggedIn(true);
     // // alert("Logged in");

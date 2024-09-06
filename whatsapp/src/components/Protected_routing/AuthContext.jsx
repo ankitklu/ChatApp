@@ -79,7 +79,7 @@ function AuthWrapper({ children }) {
         //state is changinf
         setIsUploading(true);
         setError(null);
-        console.log("upload started");
+        //console.log("upload started");
       },
       () => {
         //erro r msg

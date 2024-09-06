@@ -23,17 +23,17 @@ function Home(props) {
   //   uploadTask.on("state_changed", progressCB , errorCB, finishedCB);
 
   //   function progressCB(data){
-  //     console.log("Data: ", data);
+  //     //console.log("Data: ", data);
   //   }
 
   //   function errorCB(err){
-  //     console.log(err);
+  //     //console.log(err);
   //   }
 
   //   function finishedCB(){
-  //     console.log("Success: ");
+  //     //console.log("Success: ");
   //     getDownloadURL(uploadTask.snapshot.ref).then(function(url){
-  //       console.log("url is: ", url);
+  //       //console.log("url is: ", url);
   //     })
   //   }
 
@@ -49,12 +49,15 @@ function Home(props) {
   // };
 
   return (
-    <main className="w-full h-screen bg-[#E3E1DB]">
-      {/* <div>Home</div> */}
-      {/* <input type="file" accept="image/png image/jpeg image/jpg image/webp" onChange={handleChange} ></input> */}
-      <div className="bg-[#eff2f5] w-full h-full shadow-md flex">
-        <ChatPanel />
-        <Chat />
+    <main className="relative w-full h-screen bg-[#E3E1DB]">
+      <div className="absolute top-0 h-[130px] bg-primary w-full"></div>
+      <div className="h-screen absolute w-full p-5">
+        {/* <div>Home</div> */}
+        {/* <input type="file" accept="image/png image/jpeg image/jpg image/webp" onChange={handleChange} ></input> */}
+        <div className="bg-[#eff2f5] w-full h-full shadow-md flex">
+          <ChatPanel />
+          <Chat />
+        </div>
       </div>
       
     </main>

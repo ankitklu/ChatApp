@@ -26,12 +26,12 @@ function ChatPanel() {
   useEffect(() => {
     const getUsers = async () => {
       const snapshot = await getDocs(collection(db, "users"));
-      console.log(snapshot.docs.length);
+      //console.log(snapshot.docs.length);
       const arrayOfUser = snapshot.docs.map((doc) => ({
         userData: doc.data(),
         id: doc.id,
       }));
-      console.log("16", arrayOfUser);
+      //console.log("16", arrayOfUser);
       setUsers(arrayOfUser);
       setLoading(false);
     };
