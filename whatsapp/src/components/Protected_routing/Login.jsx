@@ -11,13 +11,11 @@ async function createUser(authData) {
   const userObject = authData.user;
   const { uid, photoURL, displayName, email } = userObject;
 
-
   const date = new Date();
   const timeStamp = date.toLocaleString("en-us", {
     hour: "numeric",
     minute: "numeric",
     hour12: true,
-    
   });
 
 
